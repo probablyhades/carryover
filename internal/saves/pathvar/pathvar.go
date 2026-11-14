@@ -169,6 +169,11 @@ func baseTokens() map[string]string {
 		m["localappdata"] = m["appdata"]
 		m["xdgdata"] = m["appdata"]
 		m["xdgconfig"] = filepath.Join(home, "Library", "Preferences")
+	case "android":
+		// Shared storage, where emulators keep their saves ("Android/data"
+		// is private to each app and can't be read by Carryover).
+		m["storage"] = envOr("EXTERNAL_STORAGE", "/storage/emulated/0")
+		m["documents"] = filepath.Join(m["storage"], "Documents")
 	default:
 		m["documents"] = envOr("XDG_DOCUMENTS_DIR", filepath.Join(home, "Documents"))
 		m["xdgdata"] = envOr("XDG_DATA_HOME", filepath.Join(home, ".local", "share"))
@@ -190,6 +195,7 @@ var descriptions = map[string]string{
 	"xdgdata":         "~/.local/share",
 	"xdgconfig":       "~/.config",
 	"steam":           "Steam installation",
+	"storage":         "Android shared storage (/storage/emulated/0)",
 }
 
 // Tokens lists tokens available on this device with their resolved values.
