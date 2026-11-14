@@ -7,6 +7,16 @@ All notable changes to Carryover are listed here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- An Android app (`carryover-<version>-android-arm64.apk`) that syncs emulator saves between your phone, PC and
+  Steam Deck in the background. It watches the save folders and uploads a new save within about a minute, syncs
+  everything every 15 minutes (configurable) to download saves from your other devices, and leaves a game alone
+  while another device plays it. A notification follows each sync (optional), and save conflicts can be answered
+  from theirs. Import your rclone config from the desktop app, then choose this phone's save folder for each
+  emulator profile. See [Android](README.md#android).
+- The `{storage}` path variable: Android's shared storage.
+
 ## [0.2.0] - 2026-11-14
 
 ### Added

@@ -16,7 +16,7 @@
 </p>
 
 A game launcher for Windows and Linux / Steam Deck that keeps your save games in sync through your own cloud
-storage. Carryover pulls the latest saves before you play and pushes them when you quit, from its own launcher or
+storage, plus an [Android app](#android) that syncs emulator saves on your phone in the background. Carryover pulls the latest saves before you play and pushes them when you quit, from its own launcher or
 from Steam, including Game Mode.
 
 Cloud storage: Google Drive, Dropbox, OneDrive, WebDAV (Nextcloud, ownCloud, NAS), SFTP and SMB.
@@ -69,6 +69,7 @@ Every file is named `carryover-<version>-<os>-<arch>`, for example `carryover-0.
 | Windows | `carryover-<version>-windows-amd64.exe` | Rename it to `carryover.exe` and run it; there is no installer. |
 | Steam Deck, Linux | `carryover-<version>-linux-amd64.AppImage` | Rename it to `carryover.AppImage`, make it executable (file Properties → Permissions, or `chmod +x`) and run it. |
 | Linux | `carryover-<version>-linux-amd64.tar.gz` | Extract it and run `./install.sh` (installs into `~/.local` and adds a menu entry), or `sudo ./install.sh /usr/local` for every user. |
+| Android (arm64) | `carryover-<version>-android-arm64.apk` | Open it on the phone and allow installing from that app. See [Android](#android). |
 
 - **Keep the app in one place, under one name.** Steam shortcuts made with "Add to Steam" point at the file's path,
   which is why the exe and AppImage are renamed without the version. Put them in a folder you won't move them out
@@ -143,12 +144,42 @@ shortcut runs Carryover, so don't force a Proton version on it. Pick the save fo
 suggestions. On Windows the mode works the same way: Carryover runs `Heroic.exe --no-gui heroic://launch?…`,
 which Epic games need for their login.
 
+## Android
+
+The Android app keeps emulator saves on your phone in sync with your PC and Steam Deck, in the background. It
+doesn't start games: play in your emulator as usual, and Carryover uploads a new save within about a minute and
+downloads saves your other devices uploaded. Each sync shows a notification (this can be turned off); conflicts
+and failed syncs always do, and a conflict can be answered from its notification.
+
+1. **Cloud storage** — copy Carryover's `rclone.conf` from your PC or Deck to the phone (`%APPDATA%\Carryover\rclone.conf`
+   on Windows, `~/.config/Carryover/rclone.conf` on Linux) and use **Settings → Import rclone.conf**. Pick the same
+   remote and folder as your other devices, then delete the copied file: it gives access to your cloud storage.
+2. **Permissions** — allow **All files access** (the save folders are read by path), notifications, and
+   unrestricted battery use, so Android doesn't hold back background syncs.
+3. **Save folders** — the games and emulators you set up on the PC or Deck are listed. Open an emulator profile
+   and choose where this phone keeps its saves; the folder the other devices use is shown as a hint.
+
+How it syncs:
+
+- **"Sync as soon as a save changes"** (on by default) runs a small background service, with a silent notification,
+  that checks the save folders every 30 seconds and uploads a change once the file stops changing.
+- **A full sync** runs every 15 minutes (or 30 min, 1 h, 3 h), even if the service is off. It downloads saves that
+  another device uploaded. Android may delay it a little to save battery.
+- A game being played on another device (its cloud lock is held) is left alone until that session ends.
+- Saves in `Android/data/…` can't be read by any other app. Set the emulator to keep its saves in shared storage
+  (for example RetroArch's `/storage/emulated/0/RetroArch/saves`). `{storage}` is shared storage in a path.
+- Retro saves (`.srm`, memory cards, PPSSPP `SAVEDATA`) work across platforms when the same emulator core is used
+  everywhere. Saves of newer systems often depend on the emulator version or on per-device profiles.
+- Only 64-bit ARM phones are supported. Adding remotes on the phone itself (Google Drive, Dropbox and OneDrive need a
+  browser sign-in) isn't supported yet; import them from the desktop app.
+
 ## Path variables
 
 Save paths can use variables, so one entry works on every device. The most common are `{home}`, `{documents}`,
 `{appdata}`, `{localappdata}`, `{savedgames}`, `{localappdatalow}` (Windows `AppData\LocalLow`), `{xdgdata}`, `{xdgconfig}` and `{steam}`, plus
 `{proton:<appid>}` (a Steam game's Proton prefix, `…/compatdata/<appid>/pfx/drive_c/users/steamuser`) and
-`{proton:shortcut}` (the prefix of this game's own non-Steam shortcut). `$ENV` and `%ENV%` work too.
+`{proton:shortcut}` (the prefix of this game's own non-Steam shortcut). On Android, `{storage}` is shared
+storage (`/storage/emulated/0`). `$ENV` and `%ENV%` work too.
 The `{ }` button next to a path field lists every variable with its value on the current device.
 
 ## Command line
