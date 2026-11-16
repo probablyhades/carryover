@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The desktop icon (ui/assets/appicon.svg) without its tile, sized for the adaptive icon safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+    <group
+        android:pivotX="512"
+        android:pivotY="512"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:translateY="10">
+        <path
+            android:pathData="M186,732H810"
+            android:strokeAlpha="0.14"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeWidth="20" />
+        <path
+            android:pathData="M238,622V572A260,260 0,0 1,758 572V592"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="60">
+            <aapt:attr name="android:strokeColor">
+                <gradient
+                    android:endX="758"
+                    android:endY="0"
+                    android:startX="238"
+                    android:startY="0"
+                    android:type="linear">
+                    <item android:color="#5B8CFF" android:offset="0" />
+                    <item android:color="#3CCF91" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path
+            android:fillColor="#3CCF91"
+            android:pathData="M682,586L834,586L758,698Z"
+            android:strokeColor="#3CCF91"
+            android:strokeLineJoin="round"
+            android:strokeWidth="28" />
+        <path
+            android:fillColor="#5B8CFF"
+            android:pathData="M454,460L454,620L590,540Z"
+            android:strokeColor="#5B8CFF"
+            android:strokeLineJoin="round"
+            android:strokeWidth="40" />
+    </group>
+</vector>

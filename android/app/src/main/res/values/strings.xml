@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Carryover</string>
+
+    <!-- Navigation -->
+    <string name="tab_games">Games</string>
+    <string name="tab_settings">Settings</string>
+    <string name="refresh">Refresh</string>
+    <string name="back">Back</string>
+    <string name="open_settings">Open Settings</string>
+
+    <!-- Common -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="clear">Clear</string>
+    <string name="allow">Allow</string>
+    <string name="granted">Allowed</string>
+    <string name="overwrite">Overwrite</string>
+
+    <!-- Games -->
+    <string name="sync_all">Sync all</string>
+    <string name="no_games">No games yet. Add games in Carryover on your PC or Steam Deck: they appear here once the library syncs. Then choose where this phone keeps their saves.</string>
+    <string name="banner_cloud_title">Connect your cloud storage</string>
+    <string name="banner_cloud_text">Import the rclone config from your PC and choose the same remote and folder as your other devices.</string>
+    <string name="banner_storage_title">Allow access to your save folders</string>
+    <string name="banner_storage_text">Carryover reads your emulators\' save folders directly, so it needs \"All files access\".</string>
+    <string name="banner_error_title">Something went wrong</string>
+    <string name="profile_native">Game saves</string>
+    <string name="other_games">Other games</string>
+    <string name="status_setup">Choose this phone\'s save folder</string>
+    <string name="status_conflict">Conflict: choose which saves to keep</string>
+    <string name="status_failed">Last sync failed: %1$s</string>
+    <string name="status_uploaded">Uploaded %1$s</string>
+    <string name="status_downloaded">Downloaded %1$s</string>
+    <string name="status_checked">Up to date, checked %1$s</string>
+    <string name="status_never">Not synced yet</string>
+
+    <!-- Profile -->
+    <string name="slot_files">Files: %1$s</string>
+    <string name="slot_elsewhere">On %1$s: %2$s</string>
+    <string name="slot_not_set">No folder on this phone yet</string>
+    <string name="slot_private_folder">This folder is inside Android/data, which only its own app can read. Set the emulator to keep its saves in shared storage (for example /storage/emulated/0/RetroArch/saves) and choose that folder.</string>
+    <string name="choose_folder">Choose folder</string>
+    <string name="type_path">Type path</string>
+    <string name="folder">Folder</string>
+    <string name="path_hint">{storage} is this phone\'s shared storage (/storage/emulated/0).</string>
+    <string name="bad_folder">That folder has no file path Carryover can use. Choose a folder on this phone\'s storage or SD card.</string>
+    <string name="sync_now">Sync now</string>
+    <string name="conflict_title">The saves changed here and in the cloud</string>
+    <string name="conflict_text">Choose which saves to keep. The other side is overwritten.</string>
+    <string name="keep_phone">Keep this phone\'s</string>
+    <string name="keep_cloud">Keep the cloud\'s</string>
+    <string name="confirm_keep_phone">Upload this phone\'s saves and replace the ones in the cloud? Your other devices download them at their next sync.</string>
+    <string name="confirm_keep_cloud">Download the cloud saves and replace the ones on this phone? A safety copy of this phone\'s saves is kept in the app\'s data folder.</string>
+
+    <!-- Settings -->
+    <string name="section_device">This device</string>
+    <string name="device_name">Device name</string>
+    <string name="device_name_hint">Shown on your other devices, for example \"played on Pixel\".</string>
+    <string name="section_cloud">Cloud storage</string>
+    <string name="cloud_explain" formatted="false">Use the same remote and folder as your PC and Steam Deck. Import Carryover\'s rclone.conf from one of them: on Windows it is %APPDATA%\\Carryover\\rclone.conf, on Linux and Steam Deck ~/.config/Carryover/rclone.conf. Copy it to this phone first (keep it private: it gives access to your cloud storage).</string>
+    <string name="import_rclone">Import rclone.conf</string>
+    <string name="remote">Remote</string>
+    <string name="choose_remote">Choose a remote</string>
+    <string name="no_remotes">Import an rclone.conf first</string>
+    <string name="folder_hint">The folder inside the remote, \"Carryover\" unless you changed it.</string>
+    <string name="test_connection">Test connection</string>
+    <string name="test_ok">The cloud folder can be reached.</string>
+    <string name="import_done">Imported %1$s.</string>
+    <string name="import_some">Imported %1$s. Skipped (not supported): %2$s.</string>
+    <string name="import_none">No supported remotes found. Skipped: %1$s.</string>
+    <string name="error_read_file">Could not read that file.</string>
+    <string name="section_permissions">Permissions</string>
+    <string name="perm_storage">All files access</string>
+    <string name="perm_storage_text">To read and write your emulators\' save folders.</string>
+    <string name="perm_notifications">Notifications</string>
+    <string name="perm_notifications_text">To tell you when saves were synced, or need your answer.</string>
+    <string name="perm_battery">Unrestricted battery use</string>
+    <string name="perm_battery_text">So Android doesn\'t delay or stop background syncs.</string>
+    <string name="section_background">Background sync</string>
+    <string name="watch_switch">Sync as soon as a save changes</string>
+    <string name="watch_switch_text">Checks the save folders every 30 seconds and uploads a new save within a minute. Shows a silent notification while it runs.</string>
+    <string name="notify_switch">Notify after each sync</string>
+    <string name="notify_switch_text">Conflicts and errors are always notified.</string>
+    <string name="interval">Check the cloud for new saves every</string>
+    <string name="minutes">%1$d min</string>
+    <string name="hours">%1$d h</string>
+    <string name="last_background">Last background sync: %1$s</string>
+    <string name="last_background_never">No background sync yet</string>
+    <string name="section_about">About</string>
+    <string name="version">Version %1$s</string>
+    <string name="log_location">Log: %1$s</string>
+
+    <!-- Progress and results -->
+    <string name="busy_saving">Saving…</string>
+    <string name="busy_importing">Importing…</string>
+    <string name="busy_testing">Testing…</string>
+    <string name="busy_syncing">Syncing…</string>
+    <string name="publish_failed">Saved on this phone; the cloud library will be updated at the next sync (%1$s)</string>
+    <string name="sync_nothing_ready">No game is set up on this phone yet.</string>
+    <string name="sync_up_to_date">%1$s is up to date</string>
+    <string name="sync_all_done">Sync finished. Saves transferred: %1$d.</string>
+    <string name="sync_all_problems">Sync finished. Saves transferred: %1$d. Needing attention: %2$d.</string>
+
+    <!-- Notifications -->
+    <string name="channel_sync">Synced saves</string>
+    <string name="channel_sync_desc">A game\'s saves were uploaded or downloaded.</string>
+    <string name="channel_attention">Needs attention</string>
+    <string name="channel_attention_desc">Save conflicts and failed syncs.</string>
+    <string name="channel_watch">Watching save folders</string>
+    <string name="channel_watch_desc">Shown while Carryover watches for new saves.</string>
+    <string name="notify_uploaded">%1$s: saves uploaded</string>
+    <string name="notify_downloaded">%1$s: saves downloaded</string>
+    <string name="notify_synced">Synced with the cloud</string>
+    <string name="notify_reload_hint">Reload the game if it is open</string>
+    <string name="notify_conflict">%1$s: save conflict</string>
+    <string name="notify_conflict_text">The saves changed on this phone and on another device. Choose which to keep.</string>
+    <string name="notify_failed">%1$s: sync failed</string>
+    <string name="watch_title">Watching your saves</string>
+    <string name="watch_starting">Starting…</string>
+    <string name="watch_checked">Last checked %1$s</string>
+    <string name="watch_offline">Can\'t reach the cloud; retrying</string>
+</resources>

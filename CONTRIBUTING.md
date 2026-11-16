@@ -103,6 +103,38 @@ go run github.com/fyne-io/fyne-cross@latest linux -arch=amd64 -app-id com.akfaiz
 It writes `fyne-cross/bin/linux-amd64/carryover` (the bare binary) and `fyne-cross/dist/linux-amd64/carryover.tar.xz`
 (binary, `.desktop` file and icon). Use `-arch=arm64` for ARM devices. The first run is slow.
 
+## Android app
+
+`android/` is a Kotlin (Jetpack Compose) app around the Go sync engine. The engine is `cmd/carryover-agent`
+(package `internal/agent`), built for `android/arm64` without cgo, so no NDK is needed, and packaged as
+`lib/arm64-v8a/libcarryover.so`. Android extracts it to the app's native library folder, the one place an app may
+run a program from, and the app runs it for every command: `info`, `games`, `set-path`, `sync`, and `watch`
+(long-running, used by the foreground service). Every command prints JSON on stdout; see `carryover-agent --help`.
+
+Requirements: Go, JDK 17 or newer and the Android SDK (platform 35, build-tools 35; set `ANDROID_HOME` or
+`sdk.dir` in `android/local.properties`).
+
+```
+cd android
+./gradlew assembleDebug          # app/build/outputs/apk/debug/app-debug.apk (runs `go build` first)
+./gradlew testDebugUnitTest lintDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+- Only `android/arm64` links without cgo (`android/amd64` and `android/arm` need the NDK), so the APK is arm64 only
+  and doesn't run on the x86_64 emulator images. Test on a phone, or an arm64 emulator image on an ARM Mac.
+- Go's resolver can't find Android's DNS servers (golang.org/issue/10714). The app passes them in `CARRYOVER_DNS`
+  (`cmd/carryover-agent/dns_android.go`), and restarts the watcher when they change.
+- The app sets `CARRYOVER_HOME` to its private files folder, `HOME`, `TMPDIR` and `EXTERNAL_STORAGE`. To try the
+  engine on a desktop: `go run ./cmd/carryover-agent games` with `CARRYOVER_HOME` set.
+- The engine's log is `files/carryover/logs/carryover.log` in the app's data (`adb shell run-as com.akfaiz.carryover`
+  on a debug build).
+- Release APKs are signed with the key in the repository secrets `ANDROID_KEYSTORE_BASE64` (a base64-encoded
+  keystore), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` and `ANDROID_KEY_PASSWORD`. Without them the release
+  job uses a throwaway debug key, and Android refuses to install a later APK over it. Locally, put `storeFile`,
+  `storePassword`, `keyAlias` and `keyPassword` in `android/keystore.properties` (git-ignored). Keep the key: an app
+  signed with a different one can't update the installed app.
+
 ## Code map
 
 `internal/` is grouped by layer. A package may import from its own group or from groups below it, never from
@@ -122,6 +154,9 @@ above (`core` is the top):
   `lang`, `services` or `core` imports and no user-visible text (callers pass labels in). It exports freely; being
   under `internal/` it is not public API
 - `services/`: API used by the GUI
+- `internal/agent`: the JSON command interface the Android app drives (above `core`, like `services/`), run by
+  `cmd/carryover-agent`
+- `android/`: the Android app (Kotlin, Compose); see [Android app](#android-app)
 - `ui/`: Fyne GUI: the pages, and everything that knows about games, services or translations
 
 See `CLAUDE.md` for detailed notes on threading, rclone behaviour and platform rules.
@@ -197,6 +232,7 @@ Each file is named `carryover-<version>-<os>-<arch>.<ext>`, where `<version>` is
   `carryover-*-linux-amd64.AppImage.zsync`.
 - `…-linux-amd64.tar.gz` (`packaging/linux/tarball.sh`): the binary, `.desktop` file, icon and AppStream metadata
   laid out like an install prefix, plus `install.sh`, which installs into `~/.local` (or a prefix given as argument).
+- `…-android-arm64.apk`: the Android app, built with Gradle in `android/` (see [Android app](#android-app)).
 
 ### Versions
 
