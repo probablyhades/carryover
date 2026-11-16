@@ -7,6 +7,8 @@ All notable changes to Carryover are listed here. The format follows
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-16
+
 ### Added
 
 - An Android app (`carryover-<version>-android-arm64.apk`) that syncs emulator saves between your phone, PC and
@@ -176,7 +178,8 @@ First public pre-release.
 - Downloads: a Windows exe, a Linux AppImage with in-place updates through Gear Lever or AppImageUpdate, and a
   Linux tarball with an `install.sh`, plus `SHA256SUMS.txt`.
 
-[Unreleased]: https://github.com/akfaiz/carryover/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/probablyhades/carryover/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/probablyhades/carryover/releases/tag/v0.3.0
 [0.2.0]: https://github.com/akfaiz/carryover/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/akfaiz/carryover/compare/v0.1.0-rc1...v0.1.0
 [0.1.0-rc1]: https://github.com/akfaiz/carryover/releases/tag/v0.1.0-rc1
